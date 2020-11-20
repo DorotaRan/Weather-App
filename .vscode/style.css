@@ -39,16 +39,35 @@ header > input {
     margin-top: 50px;
 }
 
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
 .date {
     font-weight: 100;
     margin-bottom: 50px;
 }
-
-.city {
+.city-icon {
+    display: flex;
+    flex-direction: row;
     position: relative;
+
+}
+.city {
+    
     font-weight: 100;
     font-size: 80px;
     margin-bottom: 50px;
+}
+
+.icon {
+    display: absolute;
+    top: 10px;
+    right: 5-px;
 }
 
 .fa-cloud-showers-heavy {
