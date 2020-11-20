@@ -1,13 +1,16 @@
 const apiKey = 'ab06cf297e8f65ab0d86ffab4a9e88b4'
 const url = `https://api.openweathermap.org/data/2.5/`
-let current;
 
 
 const locationSearchBox = document.querySelector('.location-search-box');
-locationSearchBox.addEventListener('keypress' , sendRequest)
-const dateContainer = document.querySelector('.date-container')
+locationSearchBox.addEventListener('keypress' , sendRequest);
+
+let current = new Date();
+const date = document.querySelector('.date-container');
 const currentDate  = document.createElement('h1');
-dateContainer.appendChild(currentDate)
+const currentTime = document.createElement('h1');
+date.appendChild(currentDate)
+date.appendChild(currentTime)
 
 function dateBuilder(){
     let month=new Array();
@@ -33,7 +36,6 @@ function dateBuilder(){
     wday[5]="Friday";
     wday[6]="Saturday";
 
-    current =  new Date();
     let nwday = wday[current.getDay()];
     let nmonth= month[current.getMonth()];
     let nyear = current.getFullYear(); 
@@ -41,7 +43,15 @@ function dateBuilder(){
     let fullDate= nwday+ ",  " +nday+" "+nmonth+" "+nyear
     return fullDate; 
 }
-dateContainer.innerText = dateBuilder()
+currentDate.innerText = dateBuilder()
+
+function timeBuilder(){
+    let nhours = current.getHours();
+    let nminutes = current.getMinutes();
+    let fullTime= nhours+":"+nminutes
+    return fullTime; 
+}
+currentTime.innerText = timeBuilder()
 
 function sendRequest(event) {
     if (event.keyCode == 13) {
@@ -74,9 +84,10 @@ function displayResults(weather) {
     conditions.innerText = `${weather.weather[0].description}` 
     let icon = document.querySelector('.city-icon > span');
     let imageCode = `${weather.weather[0].icon}`
-    icon.innerHTML = `<img src="icons/${imageCode}.png">`
+    console.log(imageCode);
+    icon.innerHTML = `<img src="icons/${imageCode}.png">`;
     let wind = document.querySelector('.wind');
-    wind.innerHTML = `<span>Wind speed: </span>${Math.round(weather.wind.speed)}<span> m/s</span>` 
+    wind.innerHTML = `<span>wind speed: </span>${Math.round(weather.wind.speed)}<span> m/s</span>` 
 }
 
 
