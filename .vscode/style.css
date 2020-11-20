@@ -1,13 +1,13 @@
 * {
-    margin: 0 auto;
-    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    width: 100hw;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
     height: 100vh;
-    background-color: navy;
+    background-color: rgb(5, 5, 75);
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
@@ -15,20 +15,19 @@ body {
 }
 
 header {
-    display: flex;
+    display: flex;;
     align-items: center;
     justify-content: center;
-    height: 100px;
-    width: 60%;
+    height: 150px;
     top: 0;
 }
 
 header > input {
-    justify-content: center;
-    align-items: center;
+    padding:2%;
     margin: 10%;
-    width: 100%;
+    width: 60%;
     height: 50px;
+    font-size: 20px;
 }
 
 .weather-conditions-container {
@@ -49,41 +48,46 @@ header > input {
 
 .date {
     font-weight: 100;
-    margin-bottom: 50px;
 }
+
 .city-icon {
     display: flex;
     flex-direction: row;
     position: relative;
-
 }
+
 .city {
-    
+    position: relative;
     font-weight: 100;
-    font-size: 80px;
-    margin-bottom: 50px;
+    font-size: 70px;
+    margin: 100px 0 50px 0;
 }
 
 .icon {
-    display: absolute;
+    position: absolute;
+    font-size: 80px;
     top: 10px;
-    right: 5-px;
+    right: -100px;
+}
+
+span > img {
+    position: absolute;
+    top: 10px;
+    right: -100px;
+    width: 80px;
+    height: 80px;
 }
 
 .fa-cloud-showers-heavy {
-    position: aboslute;
-    top: 10px;
-    right: 50px;
-    color: white;
+    color: rgb(114, 175, 245);
+}
 
+.weather-conditions {
+    font-weight: 100;
+    margin-bottom: 50px;
 }
 
 .temperature {
-    font-weight: 100;
-    margin-bottom: 50px;
+    font-size: 50px;
 }
 
-.other-conditions{
-    font-weight: 100;
-    margin-bottom: 50px;
-}

@@ -1,5 +1,7 @@
 const apiKey = 'ab06cf297e8f65ab0d86ffab4a9e88b4'
 const url = `https://api.openweathermap.org/data/2.5/`
+let current;
+
 
 const locationSearchBox = document.querySelector('.location-search-box');
 locationSearchBox.addEventListener('keypress' , sendRequest)
@@ -31,7 +33,7 @@ function dateBuilder(){
     wday[5]="Friday";
     wday[6]="Saturday";
 
-    let current =  new Date();
+    current =  new Date();
     let nwday = wday[current.getDay()];
     let nmonth= month[current.getMonth()];
     let nyear = current.getFullYear(); 
@@ -41,14 +43,6 @@ function dateBuilder(){
 }
 dateContainer.innerText = dateBuilder()
 
-const time  = document.createElement('h1');
-dateContainer.appendChild(time)
-time  = current.toLocaleTimeString('en-US', {
-  hour: "2-digit",
-  minute: "2-digit",
-});
-time.innerText = timeBuilder(current);
-
 function sendRequest(event) {
     if (event.keyCode == 13) {
         getResults(locationSearchBox.value);
@@ -57,7 +51,6 @@ function sendRequest(event) {
 };
 
 function getResults(request) {
-    
     try {
         fetch(`${url}weather?q=${request}&units=metric&APPID=${apiKey}`)
         .then(weather => {
@@ -65,7 +58,6 @@ function getResults(request) {
 
         }).then(displayResults);
     }
-
     catch(error){
         console.log(error);
         alert('error - city not found')
@@ -78,8 +70,14 @@ function displayResults(weather) {
     city.innerText = `${weather.name}, ${weather.sys.country}`;
     let temp = document.querySelector('.temperature');
     temp.innerHTML = `${Math.round(weather.main.temp)}<span>°C</span>` 
-    let conditions = document.querySelector('.other-conditions');
+    let conditions = document.querySelector('.description');
     conditions.innerText = `${weather.weather[0].description}` 
+    let icon = document.querySelector('.city-icon > span');
+    let imageCode = `${weather.weather[0].icon}`
+    icon.innerHTML = `<img src="icons/${imageCode}.png">`
     let wind = document.querySelector('.wind');
-    wind.innerText = `${weather.wind.speed}` 
+    wind.innerHTML = `<span>Wind speed: </span>${Math.round(weather.wind.speed)}<span> m/s</span>` 
 }
+
+
+
