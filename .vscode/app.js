@@ -7,12 +7,12 @@ locationSearchBox.addEventListener('keypress' , sendRequest);
 
 let current = new Date();
 const date = document.querySelector('.date-container');
-const currentDate  = document.createElement('h1');
-const currentTime = document.createElement('h1');
-date.appendChild(currentDate)
-date.appendChild(currentTime)
+const currentTime  = document.createElement('h1');
+let currentDestTime  = document.createElement('h1');
+date.appendChild(currentTime);
+date.appendChild(currentDestTime);
 
-function dateBuilder(){
+function timeBuilder(){
     let month=new Array();
     month[0]="January";
     month[1]="February";
@@ -40,16 +40,10 @@ function dateBuilder(){
     let nmonth= month[current.getMonth()];
     let nyear = current.getFullYear(); 
     let nday = current.getDate();
-    let fullDate= nwday+ ",  " +nday+" "+nmonth+" "+nyear
-    return fullDate; 
-}
-currentDate.innerText = dateBuilder()
-
-function timeBuilder(){
     let nhours = current.getHours();
-    let nminutes = current.getMinutes();
-    let fullTime= nhours+":"+nminutes
-    return fullTime; 
+    let nminutes = current.getMinutes(2);
+    let fullDate = nwday+ ",  " +nday+" "+nmonth+" "+nyear+",  "+nhours+":"+nminutes
+    return fullDate; 
 }
 currentTime.innerText = timeBuilder()
 
@@ -61,21 +55,23 @@ function sendRequest(event) {
 };
 
 function getResults(request) {
-    try {
-        fetch(`${url}weather?q=${request}&units=metric&APPID=${apiKey}`)
+    fetch(`${url}weather?q=${request}&units=metric&APPID=${apiKey}`)
         .then(weather => {
             return weather.json();
 
         }).then(displayResults);
-    }
-    catch(error){
-        console.log(error);
-        alert('error - city not found')
-    }
 }
 
 function displayResults(weather) {
-    console.log(weather);
+    let currentDest = new Date();
+    currentTime.innerText = "";
+    let localTime = currentDest.getTime();
+    let localOffset = currentDest.getTimezoneOffset() * 60000;
+    let utc = localTime + localOffset;
+    let offset = (`${weather.timezone}`/60 /60);   
+    let destTime = utc + (3600000 * offset);
+    let newDate = new Date(destTime); 
+    currentDestTime.innerText = (`${weather.name}`+ " time is " + newDate.toLocaleString());
     let city = document.querySelector('.city');
     city.innerText = `${weather.name}, ${weather.sys.country}`;
     let temp = document.querySelector('.temperature');
@@ -84,11 +80,7 @@ function displayResults(weather) {
     conditions.innerText = `${weather.weather[0].description}` 
     let icon = document.querySelector('.city-icon > span');
     let imageCode = `${weather.weather[0].icon}`
-    console.log(imageCode);
     icon.innerHTML = `<img src="icons/${imageCode}.png">`;
     let wind = document.querySelector('.wind');
     wind.innerHTML = `<span>wind speed: </span>${Math.round(weather.wind.speed)}<span> m/s</span>` 
 }
-
-
-

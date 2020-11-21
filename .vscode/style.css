@@ -15,11 +15,11 @@ body {
 }
 
 header {
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100px;
-    top: 0;
 }
 
 header > input {
@@ -44,28 +44,27 @@ header > input {
 }
 
 .date-container h1 {
-    font-weight: 100;
     margin-bottom: 10px;
+    font-weight: 100;
 }
 
 .city-icon {
+    position: relative;
     display: flex;
     flex-direction: row;
-    position: relative;
 }
 
 .city {
-    position: relative;
+    margin: 80px 0 30px 0;
     font-weight: 100;
     font-size: 70px;
-    margin: 80px 0 30px 0;
 }
 
 .icon {
-    font-size: 80px;
     background-image: url("./icons/01d");
     background-repeat: no-repeat;
     background-size: cover;
+    font-size: 80px;
 }
 
 span > img {
