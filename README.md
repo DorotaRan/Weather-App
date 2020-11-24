@@ -12,7 +12,7 @@ Screenshots
 
 Tech/framework used Vanilla JS
 
-Built with JS, CSS, HTML, Bootstrap, Local Storage, https://openweathermap.org/api
+Built with JS, CSS, HTML, https://openweathermap.org/api
 
 Features selecting the location worldwide, presenting wetaher condition and the icon that suits the weather condition 
 as well as presenting the time and the date of the chosen location.
